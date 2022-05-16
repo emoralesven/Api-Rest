@@ -44,7 +44,12 @@ Esta clase es la encargada de consumir la api rest GDD y luego mapear todo lo qu
 Esta clase es la encargada de manipular toda excepción creada durante el desarrollo de este proyecto.
 
 ### application.properties
-Este archivo contiene campos los cuales pueden ser modificadas segun se requiera, **importante mencionar que el proyecto estaba almacenado en una carpeta llamada Desafio en el disco D, por lo que se recomienda cambiar las variables path.input.json y path.output.json para obtener de manera correcta los archivos de entrada y salida**.
+Este archivo contiene campos los cuales pueden ser modificados segun se requiera, **importante mencionar que el proyecto estaba almacenado en una carpeta llamada Desafio en el disco D, por lo que se recomienda cambiar las variables path.input.json y path.output.json para obtener de manera correcta los archivos de entrada y salida**.
+
+Ej: si clonas este proyecto en el disco C en una carpeta llamada prueba, entonces debes cambiar:
+
+	path.input.json = C:\\prueba\\Desafio\\input.json
+	path.output.json = C:\\prueba\\Desafio\\output.json
 
 
 ## Como compilar y ejecutar API REST Desafio Uno
