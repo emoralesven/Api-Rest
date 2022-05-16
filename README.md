@@ -25,12 +25,12 @@ A continuación se muestra un ejemplo de un mensaje entregado por GDD.
 ```
 
 ## Diseño API REST Desafio Uno
-La API REST Desafio Uno, se compone principalmente de las siguientes clases (hay más pero solo se nombrarán las más importantes):
+La API REST Desafio Uno, se compone principalmente de las siguientes clases y archivos de configuración (hay más pero solo se nombrarán las más importantes):
 * ExternalApiCallerController.java
 * IMissingDatesServices.java
 * RestRepository.java
 * ApiExceptionHandler.java
-
+* application.properties
 ### ExternalApiCallerController
 Esta clase se encarga de establecer un endpoint REST, "/periodos" usando la anotación @RequestMapping y además se encarga de realizar el llamado al servicio 	IMissingDatesServices
 
@@ -44,5 +44,22 @@ Esta clase es la encargada de consumir la api rest GDD y luego mapear todo lo qu
 Esta clase es la encargada de manipular toda excepción creada durante el desarrollo de este proyecto.
 
 ### application.properties
-Este archivo contiene campos los cuales pueden ser modificadas segun se requiera, **importante mencionar que el proyecto estaba almacenado en una carpeta llamada Desafio en el disco D, por lo que se recomienda cambiar las variables path.input.json y path.output.json para obtener de manera correcta los archivos de entrada y salida**
+Este archivo contiene campos los cuales pueden ser modificadas segun se requiera, **importante mencionar que el proyecto estaba almacenado en una carpeta llamada Desafio en el disco D, por lo que se recomienda cambiar las variables path.input.json y path.output.json para obtener de manera correcta los archivos de entrada y salida**.
 
+
+## Como compilar y ejecutar API REST Desafio Uno
+Para compilar el proyecto se requiere Java y Maven instalado. Ingresar al directorio desafio ejecutar el siguiente comando maven
+
+	mvn package
+Luego de compilar el proyecto ingresar al directorio target ejecutar el siguiente comando java **debe tener el puerto 8090 disponible**
+			
+	java -jar .\desafio-0.0.1-SNAPSHOT.jar
+
+## Documentación mediante Swagger2
+
+La documentación está disponible (mientras el proyecto esté en ejecución) en la siguiente url : http://localhost:8090/swagger-ui/
+
+## Para consumir el servicio
+	
+	curl -X GET "http://localhost:8090/periodos" -H "accept: application/json"
+	
