@@ -1,8 +1,9 @@
-Buscar Fechas Faltantes
-Este proyecto expone un API REST que entrega la siguiente información:
+# API REST Desafio uno
 
-id: identificador fechaCreacion: Fecha de inicio de la secuencia fechaFin: Fecha de fin de la secuencia fechas: Lista de fechas que están en el rango de la fecha que se encuentra en “fechaCreacion” hasta la fecha “fechaFin” fechasFaltantes: Lista de fechas que están en el rango de la fecha que se encuentra en “fechaCreacion” hasta la fecha “fechaFin” sin considerar el listado de "fechas" ya encontrados previamente. Ejemplo.
+Esta API REST, tiene como funcionalidad indentificar todas las fechas faltantes a partir de un listado de fechas entregadas (entre un periodo de determinado) por la API "Generador De Datos o GDD", una versión de GDD se encuentra en este repositorio en GitHub: https://github.com/lmptechconsult/Generador_Datos_Desafio_Uno.
 
+A continuación se muestra un ejemplo de un mensaje entregado por GDD.
+```json
 {
     "id": 6,
     "fechaCreacion": "1970-08-01",
@@ -21,22 +22,27 @@ id: identificador fechaCreacion: Fecha de inicio de la secuencia fechaFin: Fecha
 	  "1971-03-01",
       "1971-06-01"]
 }
-Nota: El formato de las fechas es yyyy-MM-dd El servicio entrega 1 periodos, el periodo contiene una fecha inicial una fecha final, una lista de fechas y otra lista de fechas que no se encuentra en el listado anterior de fechas.
+```
 
-Compilar y ejecutar el proyecto
-Para compilar el proyecto se requiere Java y Maven instalado. Ingresar al directorio desafio ejecutar el siguiente comando maven
+## Diseño API REST Desafio Uno
+La API REST Desafio Uno, se compone principalmente de las siguientes clases (hay más pero solo se nombrarán las más importantes):
+* ExternalApiCallerController.java
+* IMissingDatesServices.java
+* RestRepository.java
+* ApiExceptionHandler.java
 
-mvn package
-Luego de compilar el proyecto ingresar al directorio target ejecutar el siguiente comando java
+### ExternalApiCallerController
+Esta clase se encarga de establecer un endpoint REST, "/periodos" usando la anotación @RequestMapping y además se encarga de realizar el llamado al servicio 	IMissingDatesServices
 
-java -jar .\desafio-0.0.1-SNAPSHOT.jar
-Nota: Debe estar disponible el puerto 8081 en el PC donde se ejecute esta API
+### IMissingDatesServices
+Esta clase se encarga de realizar un llamado a la clase RestRepository y en base a lo que esta le entregue como resultado manipulará los datos para escribirlos en formato json en dos archivos (input.json y output.json), tambien se hacen llamados a dinstintas funcionalidades para calcular las fechas faltantes en los datos recibidos, una vez realizado todos los calculos se retorna un String en formato Json hacia ExternalApiCallerController.
 
-Visualizar Documentación y consumir la API
-La documentación swagger del API (una vez que se levanta el API) queda disponible en
+### IMissingDatesServices
+Esta clase es la encargada de consumir la api rest GDD y luego mapear todo lo que reciba de esta api a un objeto, el cual finalmente es retornado hacia el servicio IMissingDatesServices.
 
-http://localhost:8081/swagger-ui/
+### ApiExceptionHandler
+Esta clase es la encargada de manipular toda excepción creada durante el desarrollo de este proyecto.
 
-Para consumir el servicio se debe invocar la siguiente URL
+### application.properties
+Este archivo contiene campos los cuales pueden ser modificadas segun se requiera, **importante mencionar que el proyecto estaba almacenado en una carpeta llamada Desafio en el disco D, por lo que se recomienda cambiar las variables path.input.json y path.output.json para obtener de manera correcta los archivos de entrada y salida**
 
-curl -X GET "http://localhost:8081/periodos/faltantes" -H "accept: */*"
